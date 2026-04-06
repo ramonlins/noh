@@ -564,6 +564,9 @@ void    CGfxTerrain::RebuildTerrainChunk(int iX, int iY)
                             }
                         }
 
+                        if (pCurrentArray->uiNumElems + 6 > uint(MAX_ELEMS_PER_CHUNK))
+                            continue;
+
                         uint uiVertPos((iTileY2 - iStartY) * (iChunkSize + 1) + (iTileX2 - iStartX));
                         uint *pElements(&pCurrentArray->pElemList[pCurrentArray->uiNumElems]);
 
@@ -590,9 +593,6 @@ void    CGfxTerrain::RebuildTerrainChunk(int iX, int iY)
 
                         pCurrentArray->uiNumFaces += 2;
                         pCurrentArray->uiNumElems += 6;
-
-                        if (pCurrentArray->uiNumElems > uint(MAX_ELEMS_PER_CHUNK))
-                            K2System.Error(_T("CGfxTerrain::RebuildTerrainChunk() - iElem > MAX_ELEMS_PER_CHUNK"));
                     }
                 }
             }

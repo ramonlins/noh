@@ -209,21 +209,14 @@ void    CClientAccount::Connect(const tstring &sToken)
 void    CClientAccount::Connect(const tstring &sUser, const tstring &sPassword)
 #endif
 {
-#ifndef K2_GARENA
-    if (sUser.empty() || sPassword.empty())
-    {
-        Console << _T("No username or password specified") << newl;
-        return;
-    }
-#endif
-
-    m_eStatus = CLIENT_LOGIN_WAITING;
+    // Offline mode: skip authentication and auto-login as local player
+    m_eStatus = CLIENT_LOGIN_SUCCESS;
     m_sStatusDescription.clear();
-    m_uiAccountID = INVALID_ACCOUNT;
+    m_uiAccountID = 1;
     m_iAccountType = 0;
     m_iTrialStatus = 0;
-    m_sCookie.clear();
-    m_sNick = _T("UnnamedNewbie");
+    m_sCookie = _T("offline");
+    m_sNick = sUser.empty() ? _T("Player") : sUser;
     m_sEmail.clear();
     m_setAvailableUpgrades.clear();
     m_mapSelectedUpgrades.clear();
@@ -233,9 +226,8 @@ void    CClientAccount::Connect(const tstring &sUser, const tstring &sPassword)
     m_uiAnnouncerVoice = INVALID_INDEX;
     m_uiTaunt = INVALID_INDEX;
 
-    ChatManager.Disconnect();
-
-    Console.Client << _T("Connecting to authentication server...") << newl;
+    Console.Client << _T("Offline mode: logged in as ") << m_sNick << newl;
+    return;
 
     if (login_useSRP) {
         SAFE_DELETE(m_pSRP);

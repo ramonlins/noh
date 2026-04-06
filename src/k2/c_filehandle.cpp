@@ -150,7 +150,8 @@ bool    CFileHandle::Open(const tstring &sFilePath, int iMode, CArchive &hArchiv
         {
             tstring sAbsolutePath(FileManager.IsCleanPath(sFilePath, false) ? sFilePath : FileManager.SanitizePath(sFilePath, false));
             tstring sPath(Filename_StripExtension(hArchive.GetPath()) + _T("/") + sAbsolutePath);
-            if (Open(sPath, iMode, hArchive.GetMod()))
+            m_pFile = FileManager.GetFile(sPath, iMode | FILE_TEST, hArchive.GetMod());
+            if (m_pFile != nullptr)
                 return true;
         }
 

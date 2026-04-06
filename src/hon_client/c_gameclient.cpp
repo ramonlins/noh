@@ -437,6 +437,11 @@ bool    CGameClient::Initialize(CHostClient *pHostClient)
         AddResourceToLoadingQueue(CLIENT_RESOURCE_GAME_MESSAGE_TABLE, _T("/stringtables/game_messages.str"), RES_STRINGTABLE);
 
         m_pInterfaceManager->LoadMainInterfaces();
+
+        // Auto-login for offline mode
+        if (m_pHostClient != nullptr)
+            m_pHostClient->Login(_T("Player"), _T("offline"));
+
         return true;
     }
     catch (CException &ex)

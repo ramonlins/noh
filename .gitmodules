@@ -1,9 +1,9 @@
 [submodule "lib"]
 	path = lib
-	url = https://github.com/shawwn/noh-lib
+	url = https://github.com/ramonlins/noh-lib
 [submodule "Heroes of Newerth"]
 	path = Heroes of Newerth
-	url = https://github.com/shawwn/noh-game
+	url = https://github.com/ramonlins/noh-game
 [submodule "Beatopia"]
 	path = Beatopia
-	url = https://github.com/shawwn/noh-beatopia
+	url = https://github.com/ramonlins/noh-beatopia
